@@ -14,14 +14,17 @@ public class ArrayStorage {
         size = 0;
     }
 
-    void save(Resume r) {
-        if (r == null) {
+    void save(Resume resume) {
+        if (resume == null) {
             return;
         }
-        if (get(r.uuid) != null) {
-            return;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid == resume.uuid) {
+                storage[i] = resume;
+                return;
+            }
         }
-        storage[size++] = r;
+        storage[size++] = resume;
     }
 
     Resume get(String uuid) {
@@ -44,7 +47,7 @@ public class ArrayStorage {
     }
 
     /**
-     * Removes element at <code>removeIndex</code> shifting right-hand elements one position left
+     * Removes element at {@code removeIndex} shifting right-hand elements one position left
      *
      * @param removeIndex index of an element being removed
      */

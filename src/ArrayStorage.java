@@ -29,9 +29,8 @@ public class ArrayStorage {
 
     Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            Resume resume = storage[i];
-            if (resume.uuid == uuid) {
-                return resume;
+            if (storage[i].uuid == uuid) {
+                return storage[i];
             }
         }
         return null;
@@ -39,8 +38,7 @@ public class ArrayStorage {
 
     void delete(String uuid) {
         for (int i = 0; i < size; i++) {
-            Resume resume = storage[i];
-            if (resume.uuid == uuid) {
+            if (storage[i].uuid == uuid) {
                 shiftLeftRemoving(i);
             }
         }
@@ -67,6 +65,6 @@ public class ArrayStorage {
     }
 
     int size() {
-        return this.size;
+        return size;
     }
 }

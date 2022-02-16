@@ -28,6 +28,13 @@ public class ArrayStorage {
         storage[size++] = resume;
     }
 
+    public void update(Resume resume) {
+        int index = indexOf(resume.uuid);
+        if (index != -1) {
+            storage[index] = resume;
+        }
+    }
+
     public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid == uuid) {
@@ -56,5 +63,14 @@ public class ArrayStorage {
 
     public int size() {
         return size;
+    }
+
+    private int indexOf(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid == uuid) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

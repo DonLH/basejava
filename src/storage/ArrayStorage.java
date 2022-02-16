@@ -36,7 +36,9 @@ public class ArrayStorage {
         if (index != -1) {
             storage[index] = resume;
         }
-        System.out.println("Resume with uuid '" + resume.uuid + "' is not yet in the storage\n");
+        else {
+            System.out.println("Resume with uuid '" + resume.uuid + "' is not yet in the storage\n");
+        }
     }
 
     public Resume get(String uuid) {
@@ -55,7 +57,9 @@ public class ArrayStorage {
             storage[size - 1] = null;
             size--;
         }
-        System.out.println("Resume with uuid '" + uuid + "' is not yet in the storage\n");
+        else {
+            System.out.println("Resume with uuid '" + uuid + "' is not yet in the storage\n");
+        }
     }
 
     /**

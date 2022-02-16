@@ -17,15 +17,16 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
+        String uuid = resume.getUuid();
         if (resume == null) {
             return;
         }
-        if (indexOf(resume.getUuid()) != -1) {
-            System.out.println("Resume with uuid '" + resume.getUuid() + "' already exists\n");
+        if (indexOf(uuid) != -1) {
+            System.out.println("Resume with uuid '" + uuid + "' already exists\n");
             return;
         }
         if (size == storage.length) {
-            System.out.println("Array storage is overflowed when trying to add resume with uuid '" + resume.getUuid() + "'\n");
+            System.out.println("Array storage is overflowed when trying to add resume with uuid '" + uuid + "'\n");
             return;
         }
         storage[size++] = resume;

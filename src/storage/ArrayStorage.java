@@ -22,7 +22,12 @@ public class ArrayStorage {
         if (resume == null) {
             return;
         }
-        if (get(resume.uuid) != null) {
+        if (indexOf(resume.uuid) != -1) {
+            System.out.println("Resume with uuid '" + resume.uuid + "' already exists\n");
+            return;
+        }
+        if (size == storage.length) {
+            System.out.println("Array storage is overflowed when trying to add resume with uuid '" + resume.uuid + "'\n");
             return;
         }
         storage[size++] = resume;
@@ -33,25 +38,26 @@ public class ArrayStorage {
         if (index != -1) {
             storage[index] = resume;
         }
+        System.out.println("Resume with uuid '" + resume.uuid + "' is not yet in the storage\n");
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid == uuid) {
-                return storage[i];
-            }
+        int index = indexOf(uuid);
+        if (index != -1) {
+            return storage[index];
         }
+        System.out.println("Resume with uuid '" + uuid + "' is not yet in the storage\n");
         return null;
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid == uuid) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
-            }
+        int index = indexOf(uuid);
+        if (index != -1) {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
         }
+        System.out.println("Resume with uuid '" + uuid + "' is not yet in the storage\n");
     }
 
     /**

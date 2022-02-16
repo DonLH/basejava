@@ -40,22 +40,11 @@ public class ArrayStorage {
     public void delete(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid == uuid) {
-                shiftLeftRemoving(i);
+                storage[i] = storage[size - 1];
+                storage[size - 1] = null;
+                size--;
             }
         }
-    }
-
-    /**
-     * Removes element at {@code removeIndex} shifting right-hand elements one position left
-     *
-     * @param removeIndex index of an element being removed
-     */
-    private void shiftLeftRemoving(int removeIndex) {
-        for (int i = removeIndex; i < size - 1; i++) {
-            storage[i] = storage[i + 1];
-        }
-        storage[size - 1] = null;
-        size--;
     }
 
     /**

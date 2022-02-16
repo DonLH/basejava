@@ -8,8 +8,8 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
-    int size = 0;
+    private Resume[] storage = new Resume[10000];
+    private int size = 0;
 
     public void clear() {
         Arrays.fill(storage, 0, size - 1, null);
@@ -20,24 +20,23 @@ public class ArrayStorage {
         if (resume == null) {
             return;
         }
-        if (indexOf(resume.uuid) != -1) {
-            System.out.println("Resume with uuid '" + resume.uuid + "' already exists\n");
+        if (indexOf(resume.getUuid()) != -1) {
+            System.out.println("Resume with uuid '" + resume.getUuid() + "' already exists\n");
             return;
         }
         if (size == storage.length) {
-            System.out.println("Array storage is overflowed when trying to add resume with uuid '" + resume.uuid + "'\n");
+            System.out.println("Array storage is overflowed when trying to add resume with uuid '" + resume.getUuid() + "'\n");
             return;
         }
         storage[size++] = resume;
     }
 
     public void update(Resume resume) {
-        int index = indexOf(resume.uuid);
+        int index = indexOf(resume.getUuid());
         if (index != -1) {
             storage[index] = resume;
-        }
-        else {
-            System.out.println("Resume with uuid '" + resume.uuid + "' is not yet in the storage\n");
+        } else {
+            System.out.println("Resume with uuid '" + resume.getUuid() + "' is not yet in the storage\n");
         }
     }
 
@@ -56,8 +55,7 @@ public class ArrayStorage {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
-        }
-        else {
+        } else {
             System.out.println("Resume with uuid '" + uuid + "' is not yet in the storage\n");
         }
     }
@@ -78,7 +76,7 @@ public class ArrayStorage {
      */
     private int indexOf(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid == uuid) {
+            if (storage[i].getUuid() == uuid) {
                 return i;
             }
         }

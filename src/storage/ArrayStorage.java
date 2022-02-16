@@ -61,7 +61,7 @@ public class ArrayStorage {
     }
 
     /**
-     * @return array, contains only Resumes in storage (without null)
+     * Returns array which contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
@@ -71,6 +71,9 @@ public class ArrayStorage {
         return size;
     }
 
+    /**
+     * Returns the element with {@code uuid} or -1 if the element is not found
+     */
     private int indexOf(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid == uuid) {

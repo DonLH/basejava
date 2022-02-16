@@ -17,10 +17,10 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        String uuid = resume.getUuid();
         if (resume == null) {
             return;
         }
+        String uuid = resume.getUuid();
         if (indexOf(uuid) != -1) {
             System.out.println("Resume with uuid '" + uuid + "' already exists\n");
             return;

@@ -24,7 +24,8 @@ public class SortedArrayStorage extends AbstractArrayStorage{
             return;
         }
         String uuid = resume.getUuid();
-        if (indexOf(uuid) != -1) {
+        int insertionPoint = -indexOf(uuid) - 1;
+        if (insertionPoint < 0) {
             System.out.println("Resume with uuid '" + uuid + "' already exists\n");
             return;
         }
@@ -32,21 +33,20 @@ public class SortedArrayStorage extends AbstractArrayStorage{
             System.out.println("Array storage is overflowed when trying to add resume with uuid '" + uuid + "'\n");
             return;
         }
-        storage[size++] = resume;
-        Arrays.sort(storage, 0, size);
+        System.arraycopy(storage, insertionPoint,
+                storage, insertionPoint + 1, size - insertionPoint);
+        storage[insertionPoint] = resume;
     }
 
     @Override
     public void delete(String uuid) {
         int index = indexOf(uuid);
-        if (index != -1) {
-            storage[index] = storage[size - 1];
-            storage[size - 1] = null;
-            size--;
-        } else {
+        if (index < 0) {
             System.out.println("Resume with uuid '" + uuid + "' is not yet in the storage\n");
         }
-        Arrays.sort(storage, 0, size);
+        System.arraycopy(storage, index + 1,
+                storage, index, size - index - 1);
+        size--;
     }
 
     @Override

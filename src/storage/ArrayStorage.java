@@ -8,7 +8,8 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private static final int STORAGE_LIMIT = 10_000;
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
 
     public void clear() {
@@ -25,7 +26,7 @@ public class ArrayStorage {
             System.out.println("Resume with uuid '" + uuid + "' already exists\n");
             return;
         }
-        if (size == storage.length) {
+        if (size == STORAGE_LIMIT) {
             System.out.println("Array storage is overflowed when trying to add resume with uuid '" + uuid + "'\n");
             return;
         }

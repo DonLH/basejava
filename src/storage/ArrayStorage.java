@@ -44,7 +44,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     /**
-     * Returns array which contains only Resumes in storage (without null)
+     * Returns an array which contains only Resumes in the storage (without null)
      */
     @Override
     public Resume[] getAll() {

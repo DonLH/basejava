@@ -19,7 +19,7 @@ public class ArrayStorage extends AbstractArrayStorage {
             return;
         }
         String uuid = resume.getUuid();
-        if (indexOf(uuid) != -1) {
+        if (indexOf(uuid) >= 0) {
             System.out.println("Resume with uuid '" + uuid + "' already exists\n");
             return;
         }
@@ -32,13 +32,12 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     public void delete(String uuid) {
         int index = indexOf(uuid);
-        if (index != -1) {
-            storage[index] = storage[size - 1];
-            storage[size - 1] = null;
-            size--;
-        } else {
+        if (index < 0) {
             System.out.println("Resume with uuid '" + uuid + "' is not yet in the storage\n");
         }
+        storage[index] = storage[size - 1];
+        storage[size - 1] = null;
+        size--;
     }
 
     /**
@@ -53,7 +52,7 @@ public class ArrayStorage extends AbstractArrayStorage {
      */
     protected int indexOf(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid() == uuid) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return i;
             }
         }

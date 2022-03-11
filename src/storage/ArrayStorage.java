@@ -9,11 +9,13 @@ import java.util.Arrays;
  */
 public class ArrayStorage extends AbstractArrayStorage {
 
+    @Override
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
+    @Override
     public void save(Resume resume) {
         if (resume == null) {
             return;
@@ -30,6 +32,7 @@ public class ArrayStorage extends AbstractArrayStorage {
         storage[size++] = resume;
     }
 
+    @Override
     public void delete(String uuid) {
         int index = indexOf(uuid);
         if (index < 0) {
@@ -43,6 +46,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     /**
      * Returns array which contains only Resumes in storage (without null)
      */
+    @Override
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }

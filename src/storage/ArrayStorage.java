@@ -47,9 +47,7 @@ public class ArrayStorage extends AbstractArrayStorage {
         return Arrays.copyOf(storage, size);
     }
 
-    /**
-     * Returns the element with {@code uuid} or -1 if the element is not found
-     */
+    @Override
     protected int indexOf(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {

@@ -30,5 +30,8 @@ public abstract class AbstractArrayStorage implements Storage {
         storage[index] = resume;
     }
 
+    /**
+     * Returns the index of an element with {@code uuid} or any negative value if the element is not found
+     */
     protected abstract int indexOf(String uuid);
 }

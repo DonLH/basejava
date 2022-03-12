@@ -10,37 +10,19 @@ import java.util.Arrays;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void clear() {
+    protected void clearStorage() {
         Arrays.fill(storage, 0, size, null);
-        size = 0;
     }
 
     @Override
-    public void save(Resume resume) {
-        if (resume == null) {
-            return;
-        }
-        String uuid = resume.getUuid();
-        if (indexOf(uuid) >= 0) {
-            System.out.println("Resume with uuid '" + uuid + "' already exists\n");
-            return;
-        }
-        if (size == STORAGE_LIMIT) {
-            System.out.println("Array storage is overflowed when trying to add resume with uuid '" + uuid + "'\n");
-            return;
-        }
-        storage[size++] = resume;
+    protected void save(Resume resume, int index) {
+        storage[size] = resume;
     }
 
     @Override
-    public void delete(String uuid) {
-        int index = indexOf(uuid);
-        if (index < 0) {
-            System.out.println("Resume with uuid '" + uuid + "' is not yet in the storage\n");
-        }
+    protected void delete(int index) {
         storage[index] = storage[size - 1];
         storage[size - 1] = null;
-        size--;
     }
 
     /**

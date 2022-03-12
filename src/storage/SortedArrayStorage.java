@@ -4,7 +4,12 @@ import model.Resume;
 
 import java.util.Arrays;
 
-public class SortedArrayStorage extends AbstractArrayStorage{
+public class SortedArrayStorage extends AbstractArrayStorage {
+
+    @Override
+    public Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
+    }
 
     @Override
     protected void clearStorage() {
@@ -23,11 +28,6 @@ public class SortedArrayStorage extends AbstractArrayStorage{
     protected void delete(int index) {
         System.arraycopy(storage, index + 1,
                 storage, index, size - index - 1);
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
     }
 
     @Override

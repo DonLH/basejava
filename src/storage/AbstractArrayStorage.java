@@ -2,6 +2,12 @@ package storage;
 
 import model.Resume;
 
+import java.util.Arrays;
+
+/**
+ * This class implements abstract logic to store array elements successively
+ * at the beginning of the array. Remaining cells are filled with nulls
+ */
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10_000;
 
@@ -15,7 +21,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     @Override
     public void clear() {
-        clearStorage();
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
@@ -44,7 +50,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Array storage is overflowed when trying to add resume with uuid '" + uuid + "'\n");
             return;
         }
-        save(resume, index);
+        put(resume, index);
         size++;
     }
 
@@ -63,24 +69,29 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index < 0) {
             System.out.println("Resume with uuid '" + uuid + "' is not yet in the storage\n");
         }
-        delete(index);
+        deleteFillingEmptyCells(index);
+        storage[size - 1] = null;
         size--;
     }
 
     /**
-     * Clears stored elements
+     * Returns an array which contains only Resumes in the storage (without null)
      */
-    protected abstract void clearStorage();
+    @Override
+    public Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
+    }
 
     /**
-     * Puts resume in the storage at {@code index} without checks
+     * Puts resume in the storage at {@code index} shifting element(s) if needed
      */
-    protected abstract void save(Resume resume, int index);
+    protected abstract void put(Resume resume, int index);
 
     /**
-     * Removes resume from the storage at {@code index}
+     * Removes resume from the storage at {@code index} not leaving empty cells
+     * between elements
      */
-    protected abstract void delete(int index);
+    protected abstract void deleteFillingEmptyCells(int index);
 
     /**
      * Returns the index of an element with {@code uuid} or any negative value if the element is not found

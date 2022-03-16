@@ -7,17 +7,7 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
-    }
-
-    @Override
-    protected void clearStorage() {
-        Arrays.fill(storage, 0, size, null);
-    }
-
-    @Override
-    protected void save(Resume resume, int index) {
+    protected void put(Resume resume, int index) {
         int insertionPoint = -index - 1;
         System.arraycopy(storage, insertionPoint,
                 storage, insertionPoint + 1, size - insertionPoint);
@@ -25,7 +15,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void delete(int index) {
+    protected void deleteFillingEmptyCells(int index) {
         System.arraycopy(storage, index + 1,
                 storage, index, size - index - 1);
     }

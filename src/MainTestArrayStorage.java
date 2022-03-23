@@ -9,12 +9,9 @@ public class MainTestArrayStorage {
     static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
-        Resume r1 = new Resume();
-        r1.setUuid("uuid1");
-        Resume r2 = new Resume();
-        r2.setUuid("uuid2");
-        Resume r3 = new Resume();
-        r3.setUuid("uuid3");
+        Resume r1 = new Resume("uuid1");
+        Resume r2 = new Resume("uuid2");
+        Resume r3 = new Resume("uuid3");
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
@@ -30,8 +27,7 @@ public class MainTestArrayStorage {
 
         printAll();
         System.out.println();
-        Resume updatedR2 = new Resume();
-        updatedR2.setUuid(r2.getUuid());
+        Resume updatedR2 = new Resume(r2.getUuid());
         ARRAY_STORAGE.update(updatedR2);
         System.out.println("Resume r2 updated: " + (r2 != ARRAY_STORAGE.get(r2.getUuid())));
         System.out.println("Get r2: " + ARRAY_STORAGE.get(r2.getUuid()));

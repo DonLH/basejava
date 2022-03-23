@@ -1,5 +1,8 @@
 package storage;
 
+import exception.ExistStorageException;
+import exception.NotExistStorageException;
+import exception.StorageException;
 import model.Resume;
 
 import java.util.Arrays;
@@ -29,8 +32,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume get(String uuid) {
         int index = indexOf(uuid);
         if (index < 0) {
-            System.out.println("Resume with uuid '" + uuid + "' is not yet in the storage\n");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
@@ -43,12 +45,10 @@ public abstract class AbstractArrayStorage implements Storage {
         String uuid = resume.getUuid();
         int index = indexOf(uuid);
         if (index >= 0) {
-            System.out.println("Resume with uuid '" + uuid + "' already exists\n");
-            return;
+            throw new ExistStorageException(uuid);
         }
         if (size == STORAGE_LIMIT) {
-            System.out.println("Array storage is overflowed when trying to add resume with uuid '" + uuid + "'\n");
-            return;
+            throw new StorageException("Array storage is overflowed when trying to add resume with uuid '" + uuid + "'", uuid);
         }
         put(resume, index);
         size++;
@@ -58,7 +58,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume resume) {
         int index = indexOf(resume.getUuid());
         if (index < 0) {
-            System.out.println("Resume with uuid '" + resume.getUuid() + "' is not yet in the storage\n");
+            throw new NotExistStorageException(resume.getUuid());
         }
         storage[index] = resume;
     }
@@ -67,7 +67,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = indexOf(uuid);
         if (index < 0) {
-            System.out.println("Resume with uuid '" + uuid + "' is not yet in the storage\n");
+            throw new NotExistStorageException(uuid);
         }
         deleteFillingEmptyCells(index);
         storage[size - 1] = null;
